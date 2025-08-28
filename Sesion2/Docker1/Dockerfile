@@ -1,11 +1,16 @@
-# Referenciar una imagen base de python
+# Referenciar una imagen base de python 
 FROM ubuntu:20.04
 
 # Evita que el sistema operativo retire instalacioens manuales
+#Esto lo hace mas ligero
 ENV DEBIAN_FRONTEND=noninteractive
 
 # Se actualiza el sistema y se isntala los paquetes necesarios
-RUN apt-get update && apt-get install -y \
+#apt-get update permite actualizar el sistema
+# apt-get instala nuevas librerias 
+#wget permite instalar arhivos de internet
+# apt-get clean ayuda a limpiar el cache para limpiar la memoria temporal 
+RUN apt-get update && apt-get install -y \ 
     python3 \
     python3-pip \
     python3-dev \
@@ -25,6 +30,13 @@ WORKDIR /workspace
 RUN mkdir -p /root/.jupyter
 
 # Configuraciones basicas para el Jupter Notebook:
+    #echo imrpime y lo guarda en un archivo de configuracion 
+    #Se desabilita el tokeny se guarda en el archivo de configuracion 
+    #Se desabilita que pida contraseña y se guarda en e archivo de configuracion 
+    #open_browser Desaabilita un poco abrir el nvegador 
+    # allow_root permite usar el usuario privilegiado 
+
+
 RUN echo "c.NotebookApp.token = ''" >> /root/.jupyter/jupyter_notebook_config.py && \
     echo "c.NotebookApp.password = ''" >> /root/.jupyter/jupyter_notebook_config.py && \
     echo "c.NotebookApp.open_browser = False " >> /root/.jupyter/jupyter_notebook_config.py && \
@@ -39,14 +51,14 @@ CMD ["jupyter", "notebook", "--ip=0.0.0.0", "--port=8888", "--no-browser", "--al
 
 #Ctrl + s para guardar 
 
-#Listar imagenes
+#Listar imagenes 
 # docker images
 
-#listar contenedores
+#listar todos los contenedores
 # docker ps --all
 
-# eliminar image
-# docker rmi -f id_imagen
+# eliminar image 
+# docker rmi -f "id_imagen"
 
 # eliminar un contenedor
 # docker rm -f id_contenedor
