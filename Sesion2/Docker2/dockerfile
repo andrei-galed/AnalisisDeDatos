@@ -7,7 +7,7 @@ WORKDIR /app
 # copiar el archivo de dependencias / lbirerias
 COPY requirements.txt ./
 
-# instalar las librerias
+# instalar las librerias que toma del archivo requirements
 RUN pip install --no-cache -r requirements.txt
 
 # copiamos todos los archivos
@@ -15,5 +15,5 @@ COPY . .
 
 EXPOSE 5000
 
-# COMANDO por defecto que ejecutara el contendor
+# COMANDO por defecto que ejecutara el contendor, cada vez que crees un contenedor se va ejecutar el app.py
 CMD ["python", "app.py"]
